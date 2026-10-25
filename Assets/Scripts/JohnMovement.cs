@@ -19,11 +19,16 @@ public class JohnMovement : MonoBehaviour
     {
         Rigidbody2D = GetComponent<Rigidbody2D>();
         Animator = GetComponent<Animator>();
+
+        if (GameManager.Instance == null && FindAnyObjectByType<GameManager>() == null)
+        {
+            GameObject gm = new GameObject("GameManager");
+            gm.AddComponent<GameManager>();
+        }
     }
 
     private void Update()
     {
-        // Movimiento
         Horizontal = Input.GetAxisRaw("Horizontal");
 
         if (Horizontal < 0.0f) transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
@@ -31,21 +36,17 @@ public class JohnMovement : MonoBehaviour
 
         Animator.SetBool("running", Horizontal != 0.0f);
 
-        // Detectar Suelo
-        // Debug.DrawRay(transform.position, Vector3.down * 0.1f, Color.red);
         if (Physics2D.Raycast(transform.position, Vector3.down, 0.1f))
         {
             Grounded = true;
         }
         else Grounded = false;
 
-        // Salto
         if (Input.GetKeyDown(KeyCode.W) && Grounded)
         {
             Jump();
         }
 
-        // Disparar
         if (Input.GetKey(KeyCode.Space) && Time.time > LastShoot + 0.25f)
         {
             Shoot();
@@ -77,5 +78,18 @@ public class JohnMovement : MonoBehaviour
     {
         Health -= 1;
         if (Health == 0) Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Coin coin = other.GetComponent<Coin>();
+        if (coin != null)
+        {
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.AddCoins(coin.Value);
+            }
+            Destroy(other.gameObject);
+        }
     }
 }

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "327120053629",
+    "project_id": "juego-c0",
+    "storage_bucket": "juego-c0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:327120053629:web:4a82e6af44ec30dc611814",
+        "android_client_info": {
+          "package_name": "com.DefaultCompany.Juego"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCK_ZvRPMi82jVB_HkSFJOA8B7hJvHzYlY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
