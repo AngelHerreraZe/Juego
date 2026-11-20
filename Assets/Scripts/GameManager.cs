@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour
         boxStyle.fontSize = 13;
         boxStyle.alignment = TextAnchor.UpperLeft;
 
-        GUI.Box(new Rect(10, 10, 240, 190), "Firebase Firestore Data", boxStyle);
+        GUI.Box(new Rect(10, 10, 240, 275), "Menu Principal y Datos", boxStyle);
 
         GUIStyle labelStyle = new GUIStyle(GUI.skin.label);
         labelStyle.fontSize = 12;
@@ -120,11 +120,24 @@ public class GameManager : MonoBehaviour
             LoadProgress();
         }
 
+        if (GUI.Button(new Rect(20, 172, 205, 26), "Reiniciar Nivel"))
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+        }
+
+        if (GUI.Button(new Rect(20, 204, 205, 26), "Salir del Juego (Exit)"))
+        {
+            Application.Quit();
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#endif
+        }
+
         if (FirebaseFirestoreManager.Instance != null && !string.IsNullOrEmpty(FirebaseFirestoreManager.Instance.LastStatus))
         {
             GUIStyle statusStyle = new GUIStyle(GUI.skin.label);
             statusStyle.fontSize = 10;
-            GUI.Label(new Rect(20, 170, 220, 25), FirebaseFirestoreManager.Instance.LastStatus, statusStyle);
+            GUI.Label(new Rect(20, 238, 220, 25), FirebaseFirestoreManager.Instance.LastStatus, statusStyle);
         }
     }
 }
